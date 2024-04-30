@@ -7,10 +7,7 @@ test.beforeEach(async ({ page }) => {
 })
 
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')   // this would be executed after every step in every suite
 
-})
 
 
 test.describe('Form Layouts Page', () => {
