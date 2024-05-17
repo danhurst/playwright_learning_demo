@@ -2,7 +2,7 @@ import { test } from '@playwright/test'
 
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')   // this would be executed after every step in every suite
+    await page.goto('/')   // replaced with global from config...
 
 })
 

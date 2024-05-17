@@ -1,9 +1,9 @@
-import {test, expect} from '@playwright/test'
+import {expect} from '@playwright/test'
+import {test} from '../test-options' // since this extends test and has 'globalsQARUL env variable defined in it'
 
-test('drag and drop', async({page}) =>{
+test('drag and drop', async({page, globalsQAURL}) =>{
 
-    await page.goto('https://www.globalsqa.com/demo-site/draganddrop/')
-
+    await page.goto(globalsQAURL)
     const consent = page.locator('.fc-cta-consent') // in uk there is a consent form that needs closing first...
     await consent.click();
    

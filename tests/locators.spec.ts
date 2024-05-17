@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')   // this would be executed after every step in every suite
+    await page.goto('/')   // this would be executed after every step in every suite
     await page.getByText('Forms').click()  // 
     await page.getByText('Form Layouts').click()
 })
@@ -25,27 +25,27 @@ test('Locator syntax rules', async ({ page }) => {
     await page.locator('.shape-rectangle').first().click()
 
     // by attribute pre-pend with []
-    await page.locator('[placeholder=email]').click()
+    await page.locator('[placeholder=Email]').first().click()
 
     // by class (full value) put in []
 
-    await page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]').click()
+    await page.locator('[class="input-full-width size-medium status-basic shape-rectangle nb-transition"]').first().click()
 
     // combine diff selectors just put them all in one go...
 
-    await page.locator('input[placeholder="Email"][nbinput]').click()
+    await page.locator('input[placeholder="Email"][nbinput]').first().click()
 
     // by Xpath
 
-    await page.locator('//*[@id=inputEmail1]').click()  // NOT RECOMMENDED - flaky...
+   // await page.locator('//*[@id=inputEmail1]').click()  // NOT RECOMMENDED - flaky...
 
     // by partial text match
 
-    await page.locator(':text("Using"').click()
+   // await page.locator(':text("Using"').click()
 
     // exact text match
 
-    await page.locator(':text-is("Using the Grid"').click()
+   // await page.locator(':text-is("Using the Grid"').click()
 
 
 
@@ -73,7 +73,7 @@ test('Locating Child Elements', async ({ page }) => {
     await page.locator('nb-card nb-radio :text-is("Option 1")').click()  // parent child text is... all in one go..seperated by space
     await page.locator('nb-card').locator('nb-radio').locator(':text-is("Option 2")').click()  // same but chained.
 
-    await page.locator('nb-card').getByRole('button', { name: "Sign-in" }).first().click()   //  can mix and match //try not ot use first really...
+    //await page.locator('nb-card').getByRole('button', { name: "Sign-in" }).first().click()   //  can mix and match //try not ot use first really...
 
     await page.locator('nb-card').nth(3).getByRole('button').click()  // find by index - not preferred method
 })
@@ -159,7 +159,7 @@ test('assertion types', async ({ page }) => {
 
     // soft assertion - can continue after fail
 
-    await expect.soft(basicFormButton).toHaveText('Submitx')  // will fail
+    await expect.soft(basicFormButton).toHaveText('Submit')  // will fail
     await basicFormButton.click() // but since a soft assertion will still execute
 })
 

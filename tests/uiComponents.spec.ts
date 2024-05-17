@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 
 test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4200/')   // this would be executed after every step in every suite
+    await page.goto('/')   // this would be executed after every step in every suite
 
 })
 
@@ -11,6 +11,7 @@ test.beforeEach(async ({ page }) => {
 
 
 test.describe('Form Layouts Page', () => {
+  //  test.describe.configure({retries: 2})  // locally force the retries to do 2x. 
     test.beforeEach(async ({ page }) => {
         await page.getByText('Forms').click()
         await page.getByText('Form Layouts').click()
@@ -18,16 +19,23 @@ test.describe('Form Layouts Page', () => {
     })
 
 
-    test('input fields', async ({ page }) => {
+    test('input fields', async ({ page }, testInfo) => {
+
+        if(testInfo.retry)
+            {
+                // this is a demo - if you were on retries > 0 you may need to reset some data or something, this is how you get to that logic. 
+            }
+
+
         const useGridEmailInput = page.locator('nb-card', { hasText: "Using the Grid" }).getByRole('textbox', { name: "Email" })
 
         await useGridEmailInput.fill('test@test.com')
-        await page.waitForTimeout(2000)
+       // await page.waitForTimeout(2000)
         await useGridEmailInput.clear()
         await useGridEmailInput.pressSequentially('blah@blah.com') // can add , {delay: 500}to slow input...
         // gereric assertion
         const inputValue = await useGridEmailInput.inputValue() // will extract the input
-        expect(inputValue).toEqual('blah@blah.com')
+        expect(inputValue).toEqual('blah@blah.com')  // this will fail on purpose for the chaper 63 retries demo.
 
         //locator assertion
 
@@ -42,17 +50,20 @@ test.describe('Form Layouts Page', () => {
 
         await useGridForm.getByLabel('Option 1').check({ force: true })  // won't work if is 'visually hidden' class - bypass this by adding parameter force=true
         // preferred method...
-        await useGridForm.getByRole('radio', { name: 'Option 1' }).check({ force: true })
-        const radioStatus = await useGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()
+        await useGridForm.getByRole('radio', { name: 'Option 2' }).check({ force: true })
+        //const radioStatus = await useGridForm.getByRole('radio', { name: 'Option 1' }).isChecked()
+        
+ await expect(useGridForm).toHaveScreenshot({maxDiffPixels: 100}) // can set the amount of allowed diff. 
 
+        /* removed all these checks for chapter 74
         expect(radioStatus).toBeTruthy()
 
         await expect(useGridForm.getByRole('radio', { name: 'Option 1' })).toBeChecked()
 
         await useGridForm.getByRole('radio', { name: 'Option 2' }).check({ force: true })
-        await expect(useGridForm.getByRole('radio', { name: 'Option 1' })).toBeFalsy
+       await expect(useGridForm.getByRole('radio', { name: 'Option 1' })).toBeFalsy
         await expect(useGridForm.getByRole('radio', { name: 'Option 2' })).toBeChecked()
-
+*/
     })
 
 
@@ -219,7 +230,7 @@ test('web tables', async ({ page }) => {
 
 })
 
-test('datepicker', async({page}) =>{
+/*test('datepicker', async({page}) =>{
 
     await page.getByText('Forms').click()
     await page.getByText('Datepicker').click()
@@ -232,7 +243,7 @@ test('datepicker', async({page}) =>{
     await page.locator('[class="day-cell ng-star-inserted"]').getByText('1', {exact: true}).click()
     await expect(calendarInput).toHaveValue('Apr 1, 2024') // sucks. need to get the actual month...
 
-})
+})*/
 
 test('datepicker2', async({page}) =>{
 

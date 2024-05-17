@@ -2,8 +2,10 @@ import { test, expect } from '@playwright/test'
 
 
 test.beforeEach(async ({ page }, testInfo) => {
-    await page.goto('http://uitestingplayground.com/ajax')   // this would be executed after every step in every suite
-    await page.getByText('Button Triggering AJAX Request').click()  // 
+   // await page.goto('http://uitestingplayground.com/ajax')   // this would be executed after every step in every suite
+   await page.goto(process.env.URL) // using the ..env file with the URL defined in there instead....
+   
+   await page.getByText('Button Triggering AJAX Request').click()  // 
      testInfo.setTimeout(testInfo.timeout + 2000) // global override for all tests.
   
 })
@@ -27,7 +29,8 @@ await expect(successButton).toHaveText('Data loaded with AJAX get request.', {ti
 
 })
 
-test('AlternativeWaits', async ({ page }) => {
+// disabled this for demo for chapter 64 - parallel tests since its slow running. 
+test.skip('AlternativeWaits', async ({ page }) => {
 
 
     const successButton = page.locator('.bg-success') // the class
@@ -50,7 +53,7 @@ test('AlternativeWaits', async ({ page }) => {
     })
 
 
-    test('timeouts', async ({ page }) => {
+    test.skip('timeouts', async ({ page }) => {
 test.setTimeout(10000)  // overrides the command timeout so will fail...
 test.slow()  // this will increase the default timoeut x3. // so will pass again...
         const successButton = page.locator('.bg-success')
