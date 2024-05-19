@@ -1,10 +1,7 @@
 import { test, expect } from '@playwright/test'
 import { PageManager } from '../page-objects/pageManager'
 import { faker } from '@faker-js/faker'    // install with npm install i @faker-js/faker --save-dev --force // this adds it straight to dev-dependencies in the config. 
-//import { NavigationPage } from '../page-objects/navigationPage'
-//import { FormLayoutsPage } from '../page-objects/formLayoutsPage'
-//import { on } from 'events'
-//import { DatePickerPage } from '../page-objects/datepickerPage'
+import { argosScreenshot } from "@argos-ci/playwright";
 
 test.beforeEach(async ({ page }) => {
     await page.goto('/')   // this would be executed after every step in every suite
@@ -44,7 +41,9 @@ test.only('testing with argos ci', async({page}) => {
 const pm = new PageManager(page)    
 //const navigateTo = new NavigationPage(page)
 await pm.navigateTo().formLayoutsPage()
+await argosScreenshot(page, "formLayoutsPage")
 await pm.navigateTo().datepickerPage()
+await argosScreenshot(page, "datepickerPage")
 
 
 })
