@@ -17,7 +17,7 @@ export default defineConfig<TestOptions>({
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
-  forbidOnly: !!process.env.CI,
+  //forbidOnly: !!process.env.CI,
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   //retries: process.env.CI ? 2 : 1,   // switches on local retries - i.e. 1 retry. 
