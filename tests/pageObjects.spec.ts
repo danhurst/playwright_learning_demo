@@ -15,7 +15,7 @@ test('navigate to form page @smoke', async({page}) => {  // same as mocha, proba
 
 const pm = new PageManager(page)    
 //const navigateTo = new NavigationPage(page)
-//await pm.navigateTo().formLayoutsPage()
+await pm.navigateTo().formLayoutsPage()
 await pm.navigateTo().datepickerPage()
 await pm.navigateTo().smarTablePage()
 await pm.navigateTo().toastrPage()
@@ -37,6 +37,15 @@ await page.locator('nb-card', {hasText: "Inline form"}).screenshot({path:  'scre
 //await pm.navigateTo().datepickerPage()
 //await pm.onDatePickerPage().selectCommonDatePickerDateFromToday(6)
 //await pm.onDatePickerPage().selectCommonDatePickerWithRangeFromToday(7, 10)
+
+})
+
+test.only('testing with argos ci', async({page}) => {
+const pm = new PageManager(page)    
+//const navigateTo = new NavigationPage(page)
+await pm.navigateTo().formLayoutsPage()
+await pm.navigateTo().datepickerPage()
+
 
 })
 
